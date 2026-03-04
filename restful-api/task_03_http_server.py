@@ -6,7 +6,7 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
         # Root endpoint
         if self.path == "/":
             self.send_response(200)
-            self.send_header("Content-type", "text/plain")
+            self.send_header("Content-type", "text/plain; charset=utf-8")
             self.end_headers()
             self.wfile.write(b"Hello, this is a simple API!")
         
@@ -14,22 +14,22 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
         elif self.path == "/data":
             data = {"name": "John", "age": 30, "city": "New York"}
             self.send_response(200)
-            self.send_header("Content-type", "application/json")
+            self.send_header("Content-type", "application/json; charset=utf-8")
             self.end_headers()
             self.wfile.write(json.dumps(data).encode())
         
-        # /status endpoint → API status
+        # /status endpoint → JSON with status and version
         elif self.path == "/status":
-            status_data = {"status": "OK"}
+            status_data = {"status": "OK", "version": "1.0"}
             self.send_response(200)
-            self.send_header("Content-type", "application/json")
+            self.send_header("Content-type", "application/json; charset=utf-8")
             self.end_headers()
             self.wfile.write(json.dumps(status_data).encode())
         
         # Undefined endpoint → 404
         else:
             self.send_response(404)
-            self.send_header("Content-type", "text/plain")
+            self.send_header("Content-type", "text/plain; charset=utf-8")
             self.end_headers()
             self.wfile.write(b"Endpoint not found")
 
