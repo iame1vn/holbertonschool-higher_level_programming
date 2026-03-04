@@ -16,19 +16,19 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
             json_data = json.dumps(data)
             self.send_response(200)
             self.send_header("Content-Type", "application/json")
-            self.send_header("Content-Length", str(len(json_data.encode())))
+            self.send_header("Content-Length", str(len(json_data.encode('utf-8'))))
             self.end_headers()
-            self.wfile.write(json_data.encode())
+            self.wfile.write(json_data.encode('utf-8'))
 
-        # /status endpoint → JSON response (test uyğun)
+        # /status endpoint → JSON response (testlə uyğun)
         elif self.path == "/status":
-            status_data = {"status": "OK"}  # Sadəcə status
+            status_data = {"status": "OK"}  # Testin tələb etdiyi dəqiq JSON
             json_data = json.dumps(status_data)
             self.send_response(200)
             self.send_header("Content-Type", "application/json")
-            self.send_header("Content-Length", str(len(json_data.encode())))
+            self.send_header("Content-Length", str(len(json_data.encode('utf-8'))))
             self.end_headers()
-            self.wfile.write(json_data.encode())
+            self.wfile.write(json_data.encode('utf-8'))
 
         # Undefined endpoint → 404
         else:
