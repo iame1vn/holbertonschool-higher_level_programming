@@ -15,19 +15,13 @@ class SimpleAPIHandler(BaseHTTPRequestHandler):
             self.send_header("Content-type", "application/json")
             self.end_headers()
             self.wfile.write(json.dumps(data).encode("utf-8"))
-        elif self.path == "/status":
-            status_data = {"status": "OK"}  # testin tələb etdiyi məzmun
+        elif self.path == "/status":  # test bunu gözləyir
+            status_data = {"status": "OK"}
             self.send_response(200)
             self.send_header("Content-type", "application/json")
             self.end_headers()
             self.wfile.write(json.dumps(status_data).encode("utf-8"))
-        elif self.path == "/info":
-            info_data = {"version": "1.0", "description": "A simple API built with http.server"}
-            self.send_response(200)
-            self.send_header("Content-type", "application/json")
-            self.end_headers()
-            self.wfile.write(json.dumps(info_data).encode("utf-8"))
-        else:
+        else:  # undefined endpoints
             self.send_response(404)
             self.send_header("Content-type", "text/plain")
             self.end_headers()
